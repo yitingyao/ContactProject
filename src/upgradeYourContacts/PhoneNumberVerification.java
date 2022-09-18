@@ -1,6 +1,6 @@
 package upgradeYourContacts;
 
-import java.io.Serializable;
+import java.io.Serializable;//if we want to write a class to file we have to implement serializable
 
 public class PhoneNumberVerification implements Serializable {
 

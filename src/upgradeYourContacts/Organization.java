@@ -3,8 +3,8 @@ package upgradeYourContacts;
 import java.io.Serializable;
 import java.util.Scanner;
 
-public class Organization extends Contact implements Serializable {// have to use serializable to write a class to a
-																	// file
+public class Organization extends Contact implements Serializable {
+	//uses serializable to write a class to file																	
 	private String address;
 
 	public String getAddress() {

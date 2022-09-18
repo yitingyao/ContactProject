@@ -18,19 +18,19 @@ public abstract class Contact implements Serializable {
 
 	public abstract void printSummary(int index);
 
-	public abstract boolean matchesSearchQuery(String searchQuery);
+	public abstract boolean matchesSearchQuery(String searchQuery); // Contact and Person each has their own implementation
 
-	public void setName(String name) {
+	public void setName(String name) {//updates time last edited whenever name is set
 		this.name = name;
 		updateTimeLastEdited();
 	}
 
-	public void setNumber(String number) {
+	public void setNumber(String number) {//updates time last edited whenever number is set
 		this.number = number;
 		updateTimeLastEdited();
 	}
 
-	public Contact(String name, String number) {
+	public Contact(String name, String number) {//updates time created whenever a new contact is created
 		this.name = name;
 		this.number = number;
 		this.timeCreated = LocalDateTime.now(); // localdatetime is object of class, now is function

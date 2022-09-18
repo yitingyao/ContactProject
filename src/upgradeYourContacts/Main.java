@@ -28,7 +28,7 @@ public class Main {
 				} else {
 					// Print summary of contacts
 					phoneBook.printContacts();// loop through phonebook for each contact, calls printSummary()
-					listMenu();
+					listContactsMenu();
 				}
 			}
 			if (action.equalsIgnoreCase(Action.EXIT.name())) {
@@ -54,6 +54,9 @@ public class Main {
 				//loop through to print them out
 
 				Contact contact = matchingContacts.get(i);
+				//getting existing contact from arraylist matchingContacts and storing it in variable contact
+				//did not make a new contact object
+				//could've also done matchingContacts.get(i).printSummary(i) same thing
 				contact.printSummary(i);
 			}
 
@@ -117,20 +120,20 @@ public class Main {
 		if (contactType.equalsIgnoreCase("person")) {
 			Person person = new Person("", "", "", "", "");// dummy object
 			Person newPerson = person.addPerson(phoneNumberVerification);
-			phoneBook.addPhoneBook(newPerson);// putting person object into arraylist
+			phoneBook.addPhoneBook(newPerson);// adds new person object into arraylist
 
 		}
 		if (contactType.equalsIgnoreCase("organization")) {
 			Organization organization = new Organization("", "", "");// dummy object
 			Organization newOrganization = organization.addOrganization(phoneNumberVerification);
-			phoneBook.addPhoneBook(newOrganization);// putting person object into arraylist
+			phoneBook.addPhoneBook(newOrganization);// adds new organization object into arraylist
 
 		}
 		System.out.println("The record added.");
 		phoneBook.saveContacts();
 	}
 
-	public static void listMenu() {
+	public static void listContactsMenu() {//prints out list of saved contacts to choose from
 
 		System.out.print("[list] Enter action ([number], back):");
 
@@ -161,11 +164,11 @@ public class Main {
 	public static void recordDetailsAction(int recordNumber) {// lists out contact details each time changes are made in
 																// record
 
-		Contact selectedContact = phoneBook.getContact(recordNumber);// gets the contact to print
+		Contact selectedContact = phoneBook.getContact(recordNumber);// gets the selected contact to print
 
 		while (true) {
 			System.out.println(selectedContact.toString());// Java automatically calls toString() when printing an
-			// Prints out contact details
+			// Prints out the selected contact details including name, surname, birthdate etc
 			System.out.print("[record] Enter action (edit, delete, menu): > ");
 			String action = scanner.nextLine();
 
@@ -190,6 +193,7 @@ public class Main {
 		Contact editContact = phoneBook.getContact(recordNumber); // gets contact at selected record to be edited
 
 		String[] fieldNames = editContact.getFieldNames();
+		//After selecting a contact, this stores the array(name, surname, birthdate, gender, number) into variable fieldnames
 
 		System.out.print("Select a field (" + Arrays.toString(fieldNames).replace("[", "").replace("]", "") + "): > ");
 		String fieldChoice = scanner.nextLine();

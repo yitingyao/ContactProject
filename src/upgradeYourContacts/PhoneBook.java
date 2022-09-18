@@ -1,6 +1,6 @@
 package upgradeYourContacts;
 
-import java.io.FileInputStream;
+import java.io.FileInputStream;//used to obtain input bytes from a file in a file system
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
@@ -12,23 +12,20 @@ public class PhoneBook {
 
 	public PhoneBook() {
 		this.phoneBooks = new ArrayList<>();
-		// Person person = new Person("Tina", "", "Yao", "F", "Jun17");
-		// Organization otherCompany = new Organization("another", "411", "Another
-		// St.");
-		// Organization company = new Organization("abc", "311", "JohnSt.");
-
-		// this.phoneBooks.add(person);
-		// this.phoneBooks.add(otherCompany);
-		// this.phoneBooks.add(company);
-
-		try {
+		//load the file within phonebook constructor such that each time the program is run
+		//the previous created contacts are loaded into new arraylist
+		try {//sets the new phonebook arraylist to the data in the file
+				//the same data but a brand new arraylist each time
 			FileInputStream fileStream = new FileInputStream("phonebook.txt");
+			//This is where the file is opened
 			ObjectInputStream objectStream = new ObjectInputStream(fileStream);
-
-			// Read / load data from the file
+			//Need an ObjectInputStream to convert the bytes in the file to a Java object or a form of data that Java understands
+			//Takes in the "file stream" (the file) on the right-hand side
+			// Read load data from the file
 			Object readData = objectStream.readObject();
+			//This is where the bytes are read from the file, converting into an object, and storing it in a variable
 			this.phoneBooks = (ArrayList<Contact>) readData;
-
+			//Cast the data into its actual type. Java only knows it's some random type of object
 			// Cleanup
 			objectStream.close();
 			fileStream.close();
@@ -97,11 +94,17 @@ public class PhoneBook {
 
 	}
 
-	public void saveContacts() {//where phonebook.txt is created and written on. The txt file is made when first exited.
+	public void saveContacts() {
+		//where phonebook.txt is created and written on. The txt file is made when the first contact is added
+		//this method is called within addRecords()
 		// Save to a file
 		try {
 			FileOutputStream fileStream = new FileOutputStream("phonebook.txt");
+			//where the file is being opened
 			ObjectOutputStream objectStream = new ObjectOutputStream(fileStream);
+			//need an ObjectInputStream to convert the bytes in the file to a Java obejct
+			//or a form of data that Java understands
+			//Notice it takes the file stream on the right-hand side
 			objectStream.writeObject(this.phoneBooks);
 
 			// Done writing, cleanup
