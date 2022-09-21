@@ -150,7 +150,7 @@ public class Person extends Contact implements Serializable {// have to use seri
 		//		}
 	}
 
-	public String toString() {
+	public String toString() {//The makeup of recordDetails summary
 		StringBuilder builder = new StringBuilder();
 		builder.append("Name: " + getFieldIfNotEmpty(getName()) + "\n");
 		builder.append("Surname: " + getFieldIfNotEmpty(getSurname()) + "\n");

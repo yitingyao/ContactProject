@@ -11,7 +11,7 @@ public class Main {
 
 	public static void main(String[] args) {
 		while (true) {
-			System.out.print("[menu] Enter action (add, list, search, count, exit): > ");
+			System.out.print("[menu] Enter action (add, list, search, count, exit): > "); //main menu to return to after each choice
 			String action = scanner.nextLine();
 			if (action.equalsIgnoreCase(Action.ADD.name())) {
 				addRecord();
@@ -93,6 +93,7 @@ public class Main {
 
 	public static boolean validStringNumberInRange(String stringNum, int min, int max) {
 		//converts String input of contact choice into an integer
+		//makes sure userinput for list falls within valid range e.g 1 to endoflist
 		try {
 			int parsedNum = Integer.parseInt(stringNum);//converts into integer
 			if (parsedNum < min || parsedNum > max) {//if greater than size of matchingContacts arraylist or less than 1
@@ -130,7 +131,8 @@ public class Main {
 
 		}
 		System.out.println("The record added.");
-		phoneBook.saveContacts();
+		phoneBook.saveContacts(); //contacts are being saved 
+		System.out.println("The record is saved!");
 	}
 
 	public static void listContactsMenu() {//prints out list of saved contacts to choose from
@@ -150,15 +152,15 @@ public class Main {
 			// Check if user input is a number between 1 and phonebook length.
 			// If so, call parse to integer to check if valid, if so use parsed choice and
 			// call recordMenu
-			else if (validStringNumberInRange(input, 1, phoneBook.lengthOfPhoneBook())) {
-				done = true;
-				choice = Integer.parseInt(input);
+			else if (validStringNumberInRange(input, 1, phoneBook.lengthOfPhoneBook())) {//1 is min
+				done = true;//runs the rest of the block, stops the while loop on the next run
+				choice = Integer.parseInt(input); //if false this else if block never runs
 			} else {
 				System.out.println("Invalid choice.");
 			}
 		}
 
-		recordDetailsAction(choice);
+		recordDetailsAction(choice);//after a valid choice is selected, calls method to print out record details
 	}
 
 	public static void recordDetailsAction(int recordNumber) {// lists out contact details each time changes are made in
@@ -166,9 +168,9 @@ public class Main {
 
 		Contact selectedContact = phoneBook.getContact(recordNumber);// gets the selected contact to print
 
-		while (true) {
-			System.out.println(selectedContact.toString());// Java automatically calls toString() when printing an
-			// Prints out the selected contact details including name, surname, birthdate etc
+		while (true) {// Prints out the selected contact details including name, surname, birthdate etc
+			System.out.println(selectedContact.toString());
+			// Every class has its own toString, made our own
 			System.out.print("[record] Enter action (edit, delete, menu): > ");
 			String action = scanner.nextLine();
 
@@ -193,11 +195,16 @@ public class Main {
 		Contact editContact = phoneBook.getContact(recordNumber); // gets contact at selected record to be edited
 
 		String[] fieldNames = editContact.getFieldNames();
+		//The array is soley used for printing out fieldnames menu for Person or Organization
 		//After selecting a contact, this stores the array(name, surname, birthdate, gender, number) into variable fieldnames
 
 		System.out.print("Select a field (" + Arrays.toString(fieldNames).replace("[", "").replace("]", "") + "): > ");
-		String fieldChoice = scanner.nextLine();
+		//used toString to print array fieldNames in readable format, replaced square with round brackets
+		String fieldChoice = scanner.nextLine(); //taking in choice of either name, surname
+
 		boolean isValidChoice = Arrays.asList(fieldNames).contains(fieldChoice);
+		//converts fieldNames into arraylist, checks if contains the user selected choice
+		//since cannot use arrays.contains
 		if (!isValidChoice) {
 			System.out.println("Invalid input!");
 			return;

@@ -10,29 +10,29 @@ import java.util.ArrayList;//phonebook stores the data
 public class PhoneBook {
 	private ArrayList<Contact> phoneBooks;
 
-	public PhoneBook() {
+	public PhoneBook() {//default constructor, runs one time at the beginning, to load contacts in phonebook.txt
 		this.phoneBooks = new ArrayList<>();
 		//load the file within phonebook constructor such that each time the program is run
 		//the previous created contacts are loaded into new arraylist
 		try {//sets the new phonebook arraylist to the data in the file
 				//the same data but a brand new arraylist each time
-			FileInputStream fileStream = new FileInputStream("phonebook.txt");
-			//This is where the file is opened
+			FileInputStream fileStream = new FileInputStream("phonebook2.txt");
+			//This is where the file is opened, the data in file is bytes
 			ObjectInputStream objectStream = new ObjectInputStream(fileStream);
 			//Need an ObjectInputStream to convert the bytes in the file to a Java object or a form of data that Java understands
 			//Takes in the "file stream" (the file) on the right-hand side
 			// Read load data from the file
-			Object readData = objectStream.readObject();
+			Object readData = objectStream.readObject();//converted to Java object
 			//This is where the bytes are read from the file, converting into an object, and storing it in a variable
 			this.phoneBooks = (ArrayList<Contact>) readData;
-			//Cast the data into its actual type. Java only knows it's some random type of object
+			//Cast back the data into its actual type. Java only knows it's some random type of object
 			// Cleanup
 			objectStream.close();
 			fileStream.close();
 		} catch (IOException ioError) {
 			// if file doesn't exist, set phoneBooks to empty arraylist
 			this.phoneBooks = new ArrayList<Contact>();
-		} catch (ClassNotFoundException classError) {
+		} catch (ClassNotFoundException classError) {//trying to load a class that doesn't exist
 			classError.printStackTrace();
 		}
 	}
@@ -99,8 +99,9 @@ public class PhoneBook {
 		//this method is called within addRecords()
 		// Save to a file
 		try {
-			FileOutputStream fileStream = new FileOutputStream("phonebook.txt");
-			//where the file is being opened
+
+			FileOutputStream fileStream = new FileOutputStream("phonebook2.txt");
+			//where the file is being opened, txt is created if it doesn't exist
 			ObjectOutputStream objectStream = new ObjectOutputStream(fileStream);
 			//need an ObjectInputStream to convert the bytes in the file to a Java obejct
 			//or a form of data that Java understands

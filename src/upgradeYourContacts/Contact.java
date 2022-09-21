@@ -57,7 +57,7 @@ public abstract class Contact implements Serializable {
 		this.timeLastEdited = LocalDateTime.now();
 	}
 
-	public String getFieldIfNotEmpty(String valueToCheck) {
+	public String getFieldIfNotEmpty(String valueToCheck) {//checks if value is empty to return [no data]
 		if (valueToCheck.equals("")) {
 			return "[no data]";
 		}
