@@ -8,6 +8,7 @@ Utilizes object-oriented programming concepts including abstraction encapsulatio
 The following is an example of the project implementation:
 
 [menu] Enter action (add, list, search, count, exit): > list
+
 1. Tina Yao
 [list] Enter action ([number], back):> back
 [menu] Enter action (add, list, search, count, exit): > add
